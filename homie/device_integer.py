@@ -29,3 +29,7 @@ class Device_Integer(Device_Base):
         # subclass must override and provide logic to set the device
         logger.debug("Integer Set {}".format(value))
 
+    def publish_homeassistant(self):
+        hass_config = f'homeassistant/sensor/{self.device_id}/config'
+        hass_payload = f'{{"name": "{self.name}",  "state_topic": "homie/{self.device_id}/integer/integer"}}'
+        super().publish_homeassistant(hass_config,hass_payload)
