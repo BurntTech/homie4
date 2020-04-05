@@ -27,6 +27,6 @@ class Device_Dimmer(Device_Base):
 
     def publish_homeassistant(self):
         hass_config = f'homeassistant/light/{self.device_id}/config'
-        hass_payload = f'{{"name": "{self.name}","command_topic": "homie/{self.device_id}/dimmer/dimmer/set","brightness_command_topic": "homie/{self.device_id}/dimmer/dimmer/set","brightness_state_topic": "homie/{self.device_id}/dimmer/dimmer","state_topic": "homie/{self.device_id}/dimmer/power","on_command_type": "brightness","brightness_scale": "100"}}'
+        hass_payload = f'{{"name": "{self.name}","command_topic": "homie/{self.device_id}/dimmer/dimmer/set","brightness_command_topic": "homie/{self.device_id}/dimmer/dimmer/set","brightness_state_topic": "homie/{self.device_id}/dimmer/dimmer","state_topic": "homie/{self.device_id}/dimmer/dimmer","state_value_template": "{{{{ 0 if (value | int) == 0 else 100 }}}}","brightness_scale": 100,"on_command_type": "brightness","brightness_value_template": "{{{{ value | int }}}}","payload_on" : 100,"payload_off" : 0}}'
         super().publish_homeassistant(hass_config,hass_payload)
 
